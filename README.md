@@ -8,32 +8,45 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     Input: private_test.json                    │
+│                         USER QUESTION                           │
+│         (Câu hỏi trắc nghiệm + các lựa chọn A/B/C/D)           │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                     Data Preprocessing                          │
-│  - Load JSON questions                                          │
-│  - Extract context (if embedded)                                │
-│  - Parse choices (A, B, C, D, ...)                              │
+│                    1. CONTEXT EXTRACTION                        │
+│  - Kiểm tra câu hỏi có chứa context không?                     │
+│  - Nếu có: Tách context từ câu hỏi (pattern "Đoạn thông tin:") │
+│  - Nếu không: Sử dụng câu hỏi gốc                              │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                     LLM Inference (Small Model)                 │
-│  - Format prompt with question + choices                        │
-│  - Add context if available                                     │
-│  - Call VNPT AI Small Model API                                 │
-│  - Parse response to extract answer (A/B/C/D)                   │
-│  - Measure inference time per sample                            │
+│                    2. PROMPT CONSTRUCTION                       │
+│  - Ghép context (nếu có) + câu hỏi + các lựa chọn               │
+│  - Thêm instruction: "Chọn đáp án đúng nhất"                    │
+│  - Format: [Context] + [Question] + [Choices] + [Instruction]   │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                     Output Generation                           │
-│  - submission.csv: qid,answer                                   │
-│  - submission_time.csv: qid,answer,time                         │
+│                    3. LLM GENERATION                            │
+│  - Sử dụng VNPT AI Model                                  │
+│  - LLM sinh câu trả lời dựa trên context và câu hỏi            │
+│  - Trả về đáp án kèm giải thích                                 │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    4. ANSWER EXTRACTION                         │
+│  - Parse response để lấy đáp án (A/B/C/D)                       │
+│  - Xử lý các format: "Đáp án: A", "A.", "A"                     │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                         FINAL ANSWER                            │
+│                    (A, B, C, hoặc D)                            │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -109,7 +122,3 @@ sudo docker run --gpus all \
 Sau khi chạy xong, file kết quả sẽ được lưu vào thư mục output:
 - `output/submission.csv`: File kết quả với format `qid,answer`
 - `output/submission_time.csv`: File kết quả với timing `qid,answer,time`
-
-## Liên hệ
-
-Team: TheFlash
