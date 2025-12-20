@@ -113,7 +113,7 @@ sudo docker run --gpus all \
 ```
 
 **Giải thích:**
-- `/path/to/private_test.json`: File test data (sẽ được BTC mount vào)
+- `/path/to/private_test.json`: File test data
 - `/path/to/api-keys.json`: File API credentials
 - `/path/to/output`: Thư mục output trên máy host
 
