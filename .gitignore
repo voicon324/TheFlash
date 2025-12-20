@@ -1,0 +1,79 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+venv/
+env/
+.env
+*.env
+!pipeline/.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# API Keys - QUAN TRỌNG: Không push lên git public!
+# api-keys.json
+
+# Output files
+docker_output/
+pipeline/outputs/
+*.csv
+*.pkl
+
+# Logs
+*.log
+logs/
+
+# Test files - không cần thiết cho submission
+test_local.py
+debug_*.py
+search_*.py
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large files
+*.zip
+*.tar.gz
+*.rar
+
+# Model weights (nếu có)
+*.pt
+*.pth
+*.bin
+*.onnx
+
+# FAISS index (có thể rebuild)
+# pipeline/faiss_index/
+
+# Scraper data (nếu có)
+# scraper/
+
+#Data
+AInicorns_TheBuilder_public
+*.pdf
+
+#APIKEY
+api-keys.json
