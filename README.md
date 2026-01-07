@@ -1,56 +1,58 @@
 # VNPT AI - The Builder Track 2
 
+🏆 **TOP 2 - VNPT AI Age of AInicorns - Track 2 The Builder** 🏆
+
 ## Giới thiệu
 
-Đây là submission cho cuộc thi VNPT AI - Age of AInicorns - Track 2 The Builder.
+Đây là submission đạt **Top 2** trong cuộc thi VNPT AI - Age of AInicorns - Track 2 The Builder.
 
-## Pipeline Flow
+  ## Pipeline Flow
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                         USER QUESTION                           │
-│         (Câu hỏi trắc nghiệm + các lựa chọn A/B/C/D)           │
-└────────────────────────────┬────────────────────────────────────┘
-                             │
-                             ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    1. CONTEXT EXTRACTION                        │
-│  - Kiểm tra câu hỏi có chứa context không?                     │
-│  - Nếu có: Tách context từ câu hỏi (pattern "Đoạn thông tin:") │
-│  - Nếu không: Sử dụng câu hỏi gốc                              │
-└────────────────────────────┬────────────────────────────────────┘
-                             │
-                             ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    2. PROMPT CONSTRUCTION                       │
-│  - Ghép context (nếu có) + câu hỏi + các lựa chọn               │
-│  - Thêm instruction: "Chọn đáp án đúng nhất"                    │
-│  - Format: [Context] + [Question] + [Choices] + [Instruction]   │
-└────────────────────────────┬────────────────────────────────────┘
-                             │
-                             ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    3. LLM GENERATION                            │
-│  - Sử dụng VNPT AI Model                                  │
-│  - LLM sinh câu trả lời dựa trên context và câu hỏi            │
-│  - Trả về đáp án kèm giải thích                                 │
-└────────────────────────────┬────────────────────────────────────┘
-                             │
-                             ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    4. ANSWER EXTRACTION                         │
-│  - Parse response để lấy đáp án (A/B/C/D)                       │
-│  - Xử lý các format: "Đáp án: A", "A.", "A"                     │
-└────────────────────────────┬────────────────────────────────────┘
-                             │
-                             ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                         FINAL ANSWER                            │
-│                    (A, B, C, hoặc D)                            │
-└─────────────────────────────────────────────────────────────────┘
-```
+  ```
+  ┌─────────────────────────────────────────────────────────────────┐
+  │                         USER QUESTION                           │
+  │         (Câu hỏi trắc nghiệm + các lựa chọn A/B/C/D)           │
+  └────────────────────────────┬────────────────────────────────────┘
+                              │
+                              ▼
+  ┌─────────────────────────────────────────────────────────────────┐
+  │                    1. CONTEXT EXTRACTION                        │
+  │  - Kiểm tra câu hỏi có chứa context không?                      │
+  │  - Nếu có: Tách context từ câu hỏi (pattern "Đoạn thông tin:")  │
+  │  - Nếu không: Sử dụng câu hỏi gốc                               │
+  └────────────────────────────┬────────────────────────────────────┘
+                              │
+                              ▼ 
+  ┌─────────────────────────────────────────────────────────────────┐
+  │                    2. PROMPT CONSTRUCTION                       │
+  │  - Ghép context (nếu có) + câu hỏi + các lựa chọn               │
+  │  - Thêm instruction: "Chọn đáp án đúng nhất"                    │
+  │  - Format: [Context] + [Question] + [Choices] + [Instruction]   │
+  └────────────────────────────┬────────────────────────────────────┘
+                              │
+                              ▼
+  ┌─────────────────────────────────────────────────────────────────┐
+  │                    3. LLM GENERATION                            │
+  │  - Sử dụng VNPT AI Model                                        │
+  │  - LLM sinh câu trả lời dựa trên context và câu hỏi             │
+  │  - Trả về đáp án kèm giải thích                                 │
+  └────────────────────────────┬────────────────────────────────────┘
+                              │
+                              ▼
+  ┌─────────────────────────────────────────────────────────────────┐
+  │                    4. ANSWER EXTRACTION                         │
+  │  - Parse response để lấy đáp án (A/B/C/D)                       │
+  │  - Xử lý các format: "Đáp án: A", "A.", "A"                     │
+  └────────────────────────────┬────────────────────────────────────┘
+                              │
+                              ▼
+  ┌─────────────────────────────────────────────────────────────────┐
+  │                         FINAL ANSWER                            │
+  │                    (A, B, C, hoặc D)                            │
+  └─────────────────────────────────────────────────────────────────┘
+  ```
 
-## Cấu trúc thư mục
+  ## Cấu trúc thư mục
 
 ```
 .
